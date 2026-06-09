@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Risk &amp; Growth Coaching — Haz que la vida valga la pena</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<style>
+:root {
+  --bg: #F4EFE6;
+  --bg-deep: #ECE4D5;
+  --surface: #FAF6EE;
+  --ink: #1A1714;
+  --ink-2: #3E3833;
+  --muted: #6B6359;
+  --line: #D9CFBE;
+  --line-2: #C5B89F;
+  --clay: #B85C38;
+  --clay-deep: #8E4225;
+  --moss: #3A4A3C;
+  --moss-deep: #25322A;
+  --sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --serif: 'Newsreader', 'Source Serif Pro', Georgia, serif;
+  --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --maxw: 1320px;
+  --gutter: 32px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+::selection { background: var(--clay); color: var(--bg); }
+
+.serif { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; }
+.mono-up { font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px; }
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+h1, h2, h3, h4 { margin: 0; font-weight: 400; }
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  padding: 140px 0;
+  position: relative;
+  border-top: 1px solid var(--line);
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  margin-bottom: 72px;
+  align-items: start;
+}
+.section-head .side {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-self: start;
+}
+
+/* --- Nav --- */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  padding: 22px 0;
+  transition: background 280ms ease, backdrop-filter 280ms ease, border-color 280ms ease;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  background: rgba(244, 239, 230, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom-color: var(--line);
+}
+.nav-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--serif);
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brand-mark {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--ink);
+  position: relative;
+  flex-shrink: 0;
+}
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: var(--clay);
+}
+.nav-links {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  text-decoration: none;
+  position: relative;
+  padding: 4px 0;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  height: 1px; width: 0;
+  background: var(--ink);
+  transition: width 320ms ease;
+}
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a.reservar { color: var(--clay); }
+
+.lang-btn {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid var(--line-2);
+  background: transparent;
+  color: var(--ink-2);
+  padding: 6px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+}
+.lang-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 26px;
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 220ms cubic-bezier(.2,.7,.2,1), background 200ms ease, color 200ms ease, border-color 200ms ease;
+  background: var(--ink);
+  color: var(--bg);
+}
+.btn:hover { transform: translateY(-2px); background: var(--clay); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn.ghost:hover { background: var(--ink); color: var(--bg); }
+.btn.clay { background: var(--clay); }
+.btn.clay:hover { background: var(--clay-deep); }
+.btn-arrow {
+  width: 18px; height: 18px;
+  display: inline-block;
+  transition: transform 220ms ease;
+  flex-shrink: 0;
+}
+.btn:hover .btn-arrow { transform: translateX(4px); }
+
+/* --- Hero --- */
+.hero {
+  min-height: 100vh;
+  padding: 130px 0 80px;
+  display: flex;
+  align-items: center;
+  border-top: 0;
+}
+.hero-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+.hero-meta { display: flex; gap: 28px; margin-bottom: 36px; }
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(56px, 8.2vw, 132px);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  font-weight: 400;
+}
+.hero-title em { font-style: italic; color: var(--clay); }
+.hero-sub {
+  margin-top: 32px;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 520px;
+}
+.hero-actions { display: flex; gap: 16px; margin-top: 44px; flex-wrap: wrap; }
+.hero-right {
+  position: relative;
+  aspect-ratio: 4/5;
+  background: var(--bg-deep);
+  border: 1px solid var(--line-2);
+  overflow: hidden;
+}
+.hero-right .photo-stripes {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(135deg, var(--line-2) 0 1px, transparent 1px 14px),
+    linear-gradient(180deg, var(--bg-deep), var(--bg));
+}
+.hero-right .photo-label {
+  position: absolute;
+  bottom: 18px; left: 18px;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 6px 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.hero-stat {
+  position: absolute;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hero-stat .n { font-family: var(--serif); font-size: 36px; line-height: 1; }
+.hero-stat .l { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.hero-stat.s1 { top: 32px; right: -28px; }
+.hero-stat.s2 { bottom: 72px; left: -32px; }
+
+.hero-bottom {
+  margin-top: 80px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+}
+.hero-chip {
+  padding: 22px 24px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-right: 1px solid var(--line);
+}
+.hero-chip:last-child { border-right: 0; padding-right: 0; }
+.hero-chip .k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.hero-chip .v { font-family: var(--serif); font-size: 22px; line-height: 1.2; }
+
+/* --- Section titles --- */
+.s-title {
+  font-family: var(--serif);
+  font-size: clamp(42px, 5.5vw, 80px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  max-width: 16ch;
+}
+.s-title em { font-style: italic; color: var(--clay); }
+.s-lede { margin-top: 24px; font-size: 19px; line-height: 1.55; color: var(--ink-2); max-width: 56ch; }
+
+/* --- Philosophy --- */
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.pillar {
+  padding: 40px 32px 40px 0;
+  border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 16px;
+}
+.pillar:last-child { border-right: 0; padding-right: 0; }
+.pillar:not(:first-child) { padding-left: 32px; }
+.pillar-num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; color: var(--clay); text-transform: uppercase; }
+.pillar-title { font-family: var(--serif); font-size: 30px; line-height: 1.1; letter-spacing: -0.01em; }
+.pillar-body { color: var(--ink-2); line-height: 1.6; font-size: 16px; }
+.pillar-rule { margin-top: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--muted); text-transform: uppercase; padding-top: 16px; border-top: 1px solid var(--line); }
+
+/* --- Culture --- */
+.culture { background: var(--moss); color: #F0EBE0; padding: 140px 0; border-top: 0; }
+.culture .s-title { color: #F2EDE1; }
+.culture .s-title em { color: #E2A876; }
+.culture-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: end; }
+.culture-body p { font-size: 17px; line-height: 1.7; color: #D6CFBC; margin: 0 0 18px; }
+.culture-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 28px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #F2EDE1;
+  padding-top: 28px;
+  margin-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+}
+.culture-quote .accent { color: #E2A876; font-style: normal; font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; display: block; margin-bottom: 12px; }
+.culture-quote .gt { color: #E2A876; font-family: var(--mono); font-style: normal; font-size: 22px; }
+
+.places { margin-top: 80px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(255,255,255,0.15); }
+.place { padding: 28px 24px 28px 0; border-right: 1px solid rgba(255,255,255,0.15); display: flex; flex-direction: column; gap: 6px; }
+.place:last-child { border-right: 0; }
+.place:not(:first-child) { padding-left: 24px; }
+.place .pl { font-family: var(--serif); font-size: 28px; color: #F2EDE1; }
+.place .ct { font-family: var(--mono); font-size: 11px; color: #9E9783; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* --- AI Tools --- */
+.ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.ai-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 36px 36px 28px;
+  display: flex; flex-direction: column; gap: 18px;
+  transition: border-color 220ms ease;
+}
+.ai-card:hover { border-color: var(--line-2); }
+.ai-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+.ai-card h3 { font-family: var(--serif); font-size: 30px; letter-spacing: -0.01em; line-height: 1.05; }
+.ai-card .badge { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line-2); padding: 5px 10px; border-radius: 999px; white-space: nowrap; }
+.ai-card p.desc { color: var(--ink-2); font-size: 15.5px; margin: 0; }
+.ai-output {
+  background: var(--bg);
+  border: 1px dashed var(--line-2);
+  padding: 22px;
+  min-height: 110px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.ai-output.empty { color: var(--muted); font-style: normal; font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+.ai-output.loading::after {
+  content: "";
+  position: absolute; right: 22px; top: 50%;
+  transform: translateY(-50%);
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--line-2);
+  border-top-color: var(--clay);
+  animation: spin 800ms linear infinite;
+}
+@keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+.ai-input { display: flex; gap: 12px; align-items: stretch; }
+.ai-input input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 14px 16px;
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 200ms ease;
+}
+.ai-input input:focus { border-color: var(--ink); }
+.ai-input input::placeholder { color: var(--muted); }
+.ai-card-footer { display: flex; justify-content: space-between; align-items: center; }
+.ai-btn { padding: 14px 22px; background: var(--ink); color: var(--bg); border: 0; font-family: var(--sans); font-size: 13px; font-weight: 500; letter-spacing: 0.02em; cursor: pointer; transition: background 200ms ease; }
+.ai-btn:hover { background: var(--clay); }
+.ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* --- Community --- */
+.community { background: var(--ink); color: #E8E2D5; padding: 140px 0; border-top: 0; }
+.community .s-title { color: #F2EDE1; }
+.community .s-title em { color: #E2A876; }
+.community .s-lede { color: #BFB7A4; }
+.tribes { margin-top: 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.tribe {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.14);
+  padding: 36px;
+  display: flex; flex-direction: column; gap: 18px;
+  transition: background 200ms ease, border-color 200ms ease;
+  cursor: pointer;
+}
+.tribe:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.32); }
+.tribe-head { display: flex; justify-content: space-between; align-items: flex-start; }
+.tribe h3 { font-family: var(--serif); font-size: 30px; letter-spacing: -0.01em; color: #F2EDE1; }
+.tribe .lang { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #C9C0AC; border: 1px solid rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 4px; }
+.tribe p { color: #BFB7A4; margin: 0; font-size: 15px; line-height: 1.55; }
+.tribe-cta { margin-top: 12px; display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #E2A876; }
+.comm-note { margin-top: 40px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #9E9783; }
+
+/* --- Contact --- */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.contact-left p { font-size: 17px; color: var(--ink-2); line-height: 1.6; margin: 0 0 28px; }
+.contact-meta { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; border-top: 1px solid var(--line); padding-top: 28px; }
+.meta-row { display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: baseline; }
+.meta-row .k { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); }
+.meta-row .v { font-family: var(--serif); font-size: 18px; color: var(--ink); }
+form.contact-form { display: flex; flex-direction: column; gap: 24px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.field input,
+.field textarea {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line-2);
+  padding: 12px 0;
+  font-family: var(--sans);
+  font-size: 17px;
+  color: var(--ink);
+  outline: none;
+  resize: none;
+  transition: border-color 200ms ease;
+}
+.field input:focus,
+.field textarea:focus { border-bottom-color: var(--ink); }
+.field input::placeholder,
+.field textarea::placeholder { color: var(--muted); }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { font-family: var(--sans); font-size: 13px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line-2); background: transparent; color: var(--ink-2); cursor: pointer; transition: all 180ms ease; }
+.chip:hover { border-color: var(--ink); color: var(--ink); }
+.chip.on { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.submit-row { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; gap: 16px; }
+.submit-status { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.submit-status.error { color: var(--clay); }
+.submit-status.ok    { color: var(--moss); }
+.field-error { border-bottom-color: var(--clay) !important; }
+.field-error::placeholder { color: var(--clay) !important; }
+
+/* --- Footer --- */
+footer.foot { padding: 64px 0 48px; border-top: 1px solid var(--line); background: var(--bg); }
+.foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+.foot h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
+.foot a { display: block; color: var(--ink-2); text-decoration: none; padding: 4px 0; font-size: 15px; }
+.foot a:hover { color: var(--clay); }
+.foot-brand-desc { color: var(--ink-2); font-size: 15px; max-width: 340px; margin: 0; }
+.foot-bottom { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+/* --- About --- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.about-photo {
+  position: sticky;
+  top: 100px;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  border: 1px solid var(--line-2);
+}
+.about-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.about-subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--clay);
+  line-height: 1.35;
+  margin-top: 16px;
+}
+.about-body { display: flex; flex-direction: column; gap: 0; }
+.about-body p { color: var(--ink-2); font-size: 17px; line-height: 1.7; margin: 0 0 18px; }
+.about-quote {
+  margin: 8px 0 28px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 21px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.about-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.about-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid var(--line-2);
+  padding: 6px 12px;
+  color: var(--muted);
+}
+
+/* --- Reveal --- */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* --- Responsive --- */
+@media (max-width: 980px) {
+  .nav-links { display: none; }
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-bottom { grid-template-columns: repeat(2, 1fr); }
+  .hero-chip { border-right: 0; border-bottom: 1px solid var(--line); padding-bottom: 16px; }
+  .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 48px; }
+  .section-head .side { position: static; flex-direction: row; }
+  .pillars { grid-template-columns: 1fr; }
+  .pillar { border-right: 0; border-bottom: 1px solid var(--line); padding: 32px 0; }
+  .pillar:not(:first-child) { padding-left: 0; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-photo { position: static; aspect-ratio: auto; }
+  .about-photo img { height: auto; }
+  .culture-grid, .ai-grid, .tribes, .contact-grid, .foot-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .ai-card { padding: 24px 20px 20px; }
+  .ai-card-head { flex-wrap: wrap; gap: 8px; }
+  .ai-card h3 { min-width: 0; }
+  .places { grid-template-columns: 1fr 1fr; }
+  .section { padding: 80px 0; }
+  .hero-stat { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav class="nav" id="main-nav">
+  <div class="nav-inner">
+    <a href="#home" class="brand" data-scroll="home">
+      <span class="brand-mark"></span>
+      <span>Risk &amp; Growth</span>
+    </a>
+    <div class="nav-links">
+      <a href="#bio"        data-scroll="bio"        data-i18n="nav_bio"></a>
+      <a href="#philosophy" data-scroll="philosophy" data-i18n="nav_philosophy"></a>
+      <a href="#culture"    data-scroll="culture"    data-i18n="nav_culture"></a>
+      <a href="#ai"         data-scroll="ai"         data-i18n="nav_tools"></a>
+      <a href="#community"  data-scroll="community"  data-i18n="nav_community"></a>
+      <a href="#contact"    data-scroll="contact"    class="reservar" data-i18n="nav_book"></a>
+    </div>
+    <button class="lang-btn" id="lang-toggle" onclick="toggleLang()"></button>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header id="home" class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-meta reveal">
+          <span class="mono-up" style="color:var(--muted)">R&amp;G — Coaching</span>
+          <span class="mono-up" style="color:var(--muted)">EST. 2019</span>
+          <span class="mono-up" style="color:var(--muted)">ES · EN</span>
+        </div>
+        <h1 class="hero-title reveal" style="transition-delay:80ms" data-i18n-html="hero_title"></h1>
+        <p class="hero-sub reveal" style="transition-delay:160ms" data-i18n="hero_sub"></p>
+        <div class="hero-actions reveal" style="transition-delay:240ms">
+          <button class="btn" data-scroll="contact">
+            <span data-i18n="hero_cta_1"></span>
+            <svg class="btn-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="btn ghost" data-scroll="philosophy">
+            <span data-i18n="hero_cta_2"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-right reveal" style="transition-delay:120ms">
+        <img src="hero.jpg" alt="Make life worth living" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
+        <div class="hero-stat s1">
+          <div class="n">200+</div>
+          <div class="l" data-i18n="hero_stat_1_l"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-bottom reveal" style="transition-delay:300ms">
+      <div class="hero-chip">
+        <span class="k" data-i18n="hero_chip_1_k"></span>
+        <span class="v serif" data-i18n="hero_chip_1_v"></span>
+      </div>
+      <div class="hero-chip">
+        <span class="k" data-i18n="hero_chip_2_k"></span>
+        <span class="v serif" data-i18n="hero_chip_2_v"></span>
+      </div>
+      <div class="hero-chip">
+        <span class="k" data-i18n="hero_chip_3_k"></span>
+        <span class="v serif" data-i18n="hero_chip_3_v"></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== ABOUT ===================== -->
+<section id="bio" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="side">
+        <span class="section-num">SEC / 00</span>
+        <span class="mono-up" style="color:var(--ink-2)" data-i18n="nav_bio"></span>
+      </div>
+      <div>
+        <h2 class="s-title reveal" data-i18n-html="bio_title"></h2>
+        <p class="about-subtitle reveal" style="transition-delay:80ms" data-i18n="bio_subtitle"></p>
+      </div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-photo reveal">
+        <img src="coach.jpg" alt="Coach portrait" />
+      </div>
+      <div class="reveal" style="transition-delay:100ms">
+        <div class="about-body">
+          <p data-i18n="bio_p1"></p>
+          <p data-i18n="bio_p2"></p>
+        </div>
+        <blockquote class="about-quote" data-i18n="bio_p3"></blockquote>
+        <div class="about-badges">
+          <span class="about-badge">Dell / EMC</span>
+          <span class="about-badge">Capgemini</span>
+          <span class="about-badge">Telefónica</span>
+          <span class="about-badge">Google · 5 yrs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PHILOSOPHY ===================== -->
+<section id="philosophy" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="side">
+        <span class="section-num">SEC / 01</span>
+        <span class="mono-up" style="color:var(--ink-2)" data-i18n="philosophy_label"></span>
+      </div>
+      <div>
+        <h2 class="s-title reveal" data-i18n-html="philosophy_title"></h2>
+        <p class="s-lede reveal" style="transition-delay:80ms" data-i18n="philosophy_lede"></p>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar reveal">
+        <span class="pillar-num" data-i18n="pillar_1_num"></span>
+        <h3 class="pillar-title" data-i18n="pillar_1_title"></h3>
+        <p class="pillar-body" data-i18n="pillar_1_body"></p>
+        <span class="pillar-rule" data-i18n="pillar_1_rule"></span>
+      </div>
+      <div class="pillar reveal" style="transition-delay:80ms">
+        <span class="pillar-num" data-i18n="pillar_2_num"></span>
+        <h3 class="pillar-title" data-i18n="pillar_2_title"></h3>
+        <p class="pillar-body" data-i18n="pillar_2_body"></p>
+        <span class="pillar-rule" data-i18n="pillar_2_rule"></span>
+      </div>
+      <div class="pillar reveal" style="transition-delay:160ms">
+        <span class="pillar-num" data-i18n="pillar_3_num"></span>
+        <h3 class="pillar-title" data-i18n="pillar_3_title"></h3>
+        <p class="pillar-body" data-i18n="pillar_3_body"></p>
+        <span class="pillar-rule" data-i18n="pillar_3_rule"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CULTURE ===================== -->
+<section id="culture" class="culture">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="side">
+        <span class="section-num" style="color:#C9C0AC">SEC / 02</span>
+        <span class="mono-up" style="color:#E2A876" data-i18n="culture_label"></span>
+      </div>
+      <div>
+        <h2 class="s-title reveal" data-i18n-html="culture_title"></h2>
+      </div>
+    </div>
+
+    <div class="culture-grid">
+      <div class="culture-body reveal">
+        <p data-i18n="culture_body_1"></p>
+        <p data-i18n="culture_body_2"></p>
+      </div>
+      <div class="culture-quote reveal" style="transition-delay:80ms">
+        <span class="accent" data-i18n="culture_quote_accent"></span>
+        <span data-i18n-html="culture_quote"></span>
+      </div>
+    </div>
+
+    <div class="places reveal" style="transition-delay:120ms">
+      <div class="place">
+        <span class="pl serif" data-i18n="city_1_name"></span>
+        <span class="ct" data-i18n="city_1_ct"></span>
+      </div>
+      <div class="place">
+        <span class="pl serif" data-i18n="city_2_name"></span>
+        <span class="ct" data-i18n="city_2_ct"></span>
+      </div>
+      <div class="place">
+        <span class="pl serif" data-i18n="city_3_name"></span>
+        <span class="ct" data-i18n="city_3_ct"></span>
+      </div>
+      <div class="place">
+        <span class="pl serif" data-i18n="city_4_name"></span>
+        <span class="ct" data-i18n="city_4_ct"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AI TOOLS ===================== -->
+<section id="ai" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="side">
+        <span class="section-num">SEC / 03</span>
+        <span class="mono-up" style="color:var(--clay)" data-i18n="ai_label"></span>
+      </div>
+      <div>
+        <h2 class="s-title reveal" data-i18n-html="ai_title"></h2>
+        <p class="s-lede reveal" style="transition-delay:80ms" data-i18n="ai_lede"></p>
+      </div>
+    </div>
+
+    <div class="ai-grid">
+      <div class="ai-card reveal">
+        <div class="ai-card-head">
+          <h3 data-i18n="spark_title"></h3>
+          <span class="badge">01 / Daily</span>
+        </div>
+        <p class="desc" data-i18n="spark_desc"></p>
+        <div class="ai-output empty" id="spark-output"></div>
+        <div class="ai-card-footer">
+          <span class="mono-up" style="color:var(--muted)" data-i18n="spark_unit"></span>
+          <button class="ai-btn" id="spark-btn" onclick="generateSpark()" data-i18n="spark_btn"></button>
+        </div>
+      </div>
+
+      <div class="ai-card reveal" style="transition-delay:80ms">
+        <div class="ai-card-head">
+          <h3 data-i18n="cult_title"></h3>
+          <span class="badge">02 / On-demand</span>
+        </div>
+        <p class="desc" data-i18n="cult_desc"></p>
+        <div class="ai-input">
+          <input type="text" id="cult-input" data-i18n-ph="cult_placeholder" />
+          <button class="ai-btn" id="cult-btn" onclick="decodeCulture()" data-i18n="cult_btn"></button>
+        </div>
+        <div class="ai-output empty" id="cult-output"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMMUNITY ===================== -->
+<section id="community" class="community">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="side">
+        <span class="section-num" style="color:#C9C0AC">SEC / 04</span>
+        <span class="mono-up" style="color:#E2A876" data-i18n="community_label"></span>
+      </div>
+      <div>
+        <h2 class="s-title reveal" data-i18n-html="community_title"></h2>
+        <p class="s-lede reveal" style="transition-delay:80ms" data-i18n="community_lede"></p>
+      </div>
+    </div>
+
+    <div class="tribes reveal" style="transition-delay:80ms">
+      <div class="tribe">
+        <div class="tribe-head">
+          <h3 data-i18n="tribe_en_title"></h3>
+          <span class="lang">EN</span>
+        </div>
+        <p>A letter every two weeks on calculated risk, cross-cultural work, and growth that lasts.</p>
+        <div class="tribe-cta">
+          <span data-i18n="tribe_en_cta"></span>
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="tribe">
+        <div class="tribe-head">
+          <h3 data-i18n="tribe_es_title"></h3>
+          <span class="lang">ES</span>
+        </div>
+        <p>Una carta quincenal sobre riesgo razonable, trabajo intercultural y crecimiento real.</p>
+        <div class="tribe-cta">
+          <span data-i18n="tribe_es_cta"></span>
+          <svg class="btn-arrow" width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <p class="comm-note reveal" style="transition-delay:160ms" data-i18n="comm_note"></p>
+  </div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section id="contact" class="section" style="padding-bottom:100px">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="side">
+        <span class="section-num">SEC / 05</span>
+        <span class="mono-up" style="color:var(--ink-2)" data-i18n="contact_label"></span>
+      </div>
+      <div>
+        <h2 class="s-title reveal" data-i18n-html="contact_title"></h2>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <p data-i18n="contact_body_1"></p>
+        <p data-i18n="contact_body_2"></p>
+        <div class="contact-meta">
+          <div class="meta-row">
+            <span class="k" data-i18n="meta_email_k"></span>
+            <span class="v">hola@crecer.coach</span>
+          </div>
+          <div class="meta-row">
+            <span class="k" data-i18n="meta_base_k"></span>
+            <span class="v" data-i18n="meta_base_v"></span>
+          </div>
+          <div class="meta-row">
+            <span class="k" data-i18n="meta_lang_k"></span>
+            <span class="v" data-i18n="meta_lang_v"></span>
+          </div>
+          <div class="meta-row">
+            <span class="k" data-i18n="meta_resp_k"></span>
+            <span class="v">&lt; 48 h</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="transition-delay:80ms">
+        <form class="contact-form" id="contact-form" onsubmit="submitForm(event)">
+          <div class="field">
+            <label for="f-name" data-i18n="label_name"></label>
+            <input id="f-name" type="text" data-i18n-ph="placeholder_name" />
+          </div>
+          <div class="field">
+            <label for="f-email" data-i18n="label_email"></label>
+            <input id="f-email" type="email" data-i18n-ph="placeholder_email" />
+          </div>
+          <div class="field">
+            <label data-i18n="label_topic"></label>
+            <div class="chips" id="topic-chips">
+              <button type="button" class="chip on" data-topic-key="topic_1" data-i18n="topic_1"></button>
+              <button type="button" class="chip" data-topic-key="topic_2" data-i18n="topic_2"></button>
+              <button type="button" class="chip" data-topic-key="topic_3" data-i18n="topic_3"></button>
+              <button type="button" class="chip" data-topic-key="topic_4" data-i18n="topic_4"></button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-msg" data-i18n="label_msg"></label>
+            <textarea id="f-msg" rows="4" data-i18n-ph="placeholder_msg"></textarea>
+          </div>
+          <div class="submit-row">
+            <span class="submit-status" id="submit-status" data-i18n="submit_status"></span>
+            <button type="submit" class="btn clay">
+              <span data-i18n="submit_btn"></span>
+              <svg class="btn-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand" style="margin-bottom:18px">
+          <span class="brand-mark"></span>
+          <span>Risk &amp; Growth Coaching</span>
+        </div>
+        <p class="foot-brand-desc" data-i18n="foot_desc"></p>
+      </div>
+      <div>
+        <h4 data-i18n="foot_nav_title"></h4>
+        <a href="#philosophy" data-scroll="philosophy" data-i18n="foot_link_philosophy"></a>
+        <a href="#culture"    data-scroll="culture"    data-i18n="foot_link_culture"></a>
+        <a href="#ai"         data-scroll="ai"         data-i18n="foot_link_ai"></a>
+        <a href="#community"  data-scroll="community"  data-i18n="foot_link_community"></a>
+      </div>
+      <div>
+        <h4 data-i18n="foot_work_title"></h4>
+        <a href="#contact" data-scroll="contact" data-i18n="foot_link_book"></a>
+        <a href="#contact" data-scroll="contact" data-i18n="foot_link_1on1"></a>
+        <a href="#community" data-scroll="community" data-i18n="foot_link_groups"></a>
+      </div>
+      <div>
+        <h4 data-i18n="foot_contact_title"></h4>
+        <a href="mailto:hola@crecer.coach">hola@crecer.coach</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span data-i18n="foot_copyright"></span>
+      <span data-i18n="foot_cities"></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Translations ── */
+const T = {
+  es: {
+    nav_bio: 'Mi Historia',
+    nav_philosophy: 'Filosofía',
+    nav_culture: 'Cultura',
+    nav_tools: 'Herramientas',
+    nav_community: 'Comunidad',
+    nav_book: 'Reservar',
+    lang_toggle: 'EN',
+
+    bio_title: 'Un viaje de <em>transformación</em>.',
+    bio_subtitle: 'De solicitante de refugio a Tech Lead — y todo lo que hay en medio.',
+    bio_p1: 'He vivido y trabajado en cuatro países — Venezuela, Canadá, España y Alemania — cada uno transformando mi manera de ver el mundo, a las personas y a mí mismo. Navegar esas transiciones, desde ser solicitante de refugio hasta construir una carrera de más de 20 años en tecnología, incluyendo 5 años en Google, me enseñó que el crecimiento rara vez viene de quedarse cómodo.',
+    bio_p2: 'Fuera del trabajo, soy papá de dos hijos increíbles — los mejores maestros que he tenido. Soy profundamente curioso: leo, experimento, aprendo idiomas y disfruto genuinamente esa sensación de ser principiante de nuevo. Ese amor por aprender es lo que impulsa todo lo que hago, incluyendo este proyecto de coaching.',
+    bio_p3: 'Si quieres ver resultados diferentes, tienes que ser lo suficientemente valiente para hacer las cosas un poco diferente.',
+
+    hero_title: '¿Estás <em>viviendo</em><br>la vida que quieres?',
+    hero_sub: 'Acepta el cambio. Toma riesgos razonables. Crece más allá de tu zona de confort — con un proceso claro, humano y construido sobre dos décadas atravesando culturas.',
+    hero_cta_1: 'Comienza tu viaje',
+    hero_cta_2: 'Conoce el método',
+    hero_stat_1_l: 'Sesiones · 4 países',
+    hero_stat_2_l: 'Programa base',
+    hero_chip_1_k: 'Enfoque',
+    hero_chip_1_v: 'Riesgo razonable',
+    hero_chip_2_k: 'Modalidad',
+    hero_chip_2_v: '1:1 · Grupos · Online',
+    hero_chip_3_k: 'Idiomas',
+    hero_chip_3_v: 'Español · English',
+    hero_chip_4_k: 'Próxima cohorte',
+    hero_chip_4_v: 'Junio 2026',
+
+    philosophy_label: 'Filosofía',
+    philosophy_title: 'La comodidad es <em>enemiga</em> del crecimiento.',
+    philosophy_lede: 'A menudo nos escondemos en la seguridad de lo conocido. Pero una vida bien vivida requiere el coraje de adentrarse en lo desconocido. Mi trabajo no es darte un plan hecho, sino hacer las preguntas que te lleven al tuyo y aportar un método para llevarlo a la acción. No afirmaciones.',
+    pillar_1_num: '01 · Pilar',
+    pillar_1_title: 'Acepta el cambio',
+    pillar_1_body: 'El cambio no es solo inevitable; es el combustible para la evolución personal. Aprendemos a recibirlo en lugar de resistirlo.',
+    pillar_1_rule: 'Inevitable · Combustible',
+    pillar_2_num: '02 · Pilar',
+    pillar_2_title: 'Riesgo calculado',
+    pillar_2_body: 'La imprudencia ciega es peligrosa. El riesgo razonable es esencial. Diseñamos pasos pequeños, valientes y reversibles.',
+    pillar_2_rule: 'Valiente · Reversible',
+    pillar_3_num: '03 · Pilar',
+    pillar_3_title: 'Crecimiento sostenible',
+    pillar_3_body: 'El crecimiento solo perdura cuando apunta a algo que valoras. Construimos la base que lo sostiene — hábitos, apoyos y la forma en que te hablas a ti mismo.',
+    pillar_3_rule: 'Valores · Resiliencia',
+
+    culture_label: 'Inteligencia Cultural',
+    culture_title: 'Uniendo mentes, fronteras y <em>diferencias</em>.',
+    culture_body_1: 'El mundo es más pequeño que nunca, pero las brechas culturales permanecen. Acompaño a personas y equipos a navegar los desafíos sutiles y complejos de trabajar a través de países, idiomas y mentalidades distintas.',
+    culture_body_2: 'No se trata solo del idioma; se trata de aceptar las diferencias y aprender a prosperar dentro de ellas. Basado en mi vida en Venezuela, Canadá, España y Alemania, te acompaño a través de la desorientación de lo nuevo, hacia una comprensión y una eficacia que de verdad son tuyas.',
+    culture_quote_accent: 'Principio operativo',
+    culture_quote: 'Understanding <span class="gt">&gt;</span> Judging — la curiosidad gana, siempre, sobre el juicio rápido.',
+    city_1_name: 'Caracas',
+    city_1_ct: 'Venezuela · Origen',
+    city_2_name: 'Toronto',
+    city_2_ct: 'Canadá · Re-aprender',
+    city_3_name: 'Madrid',
+    city_3_ct: 'España · Lengua y raíz',
+    city_4_name: 'Frankfurt',
+    city_4_ct: 'Alemania · Hoy',
+
+    ai_label: 'Herramientas IA',
+    ai_title: 'Inspiración <em>instantánea</em>, en tu bolsillo.',
+    ai_lede: 'Pequeñas herramientas que uso con mis clientes — y que ahora también puedes usar tú, gratis, cuando necesites un empujón o una traducción cultural.',
+    spark_title: 'Chispa diaria de crecimiento',
+    spark_desc: 'Una pregunta para acompañarte hoy, de las que te empujan más allá de tu zona de confort. Léela, respóndela con honestidad, observa qué aparece.',
+    spark_empty: 'Pulsa generar para recibir la pregunta de hoy.',
+    spark_unit: '≈ 20 palabras',
+    spark_btn: 'Generar pregunta',
+    spark_loading: 'Generando…',
+    cult_title: 'Decodificador cultural',
+    cult_desc: '¿Confundido por una interacción intercultural? Describe la situación brevemente y recibe una lectura útil.',
+    cult_placeholder: 'ej. Mi jefe alemán nunca elogia mi trabajo…',
+    cult_btn: 'Decodificar',
+    cult_empty: 'La lectura cultural aparecerá aquí.',
+    cult_loading: 'Pensando…',
+    cult_fallback: 'Pista cultural: en contextos alemanes, el silencio tras una propuesta suele significar reflexión, no rechazo. Da espacio antes de re-formular.',
+
+    community_label: 'Comunidad',
+    community_title: 'Únete a la <em>tribu</em>.',
+    community_lede: 'Conéctate con otras personas que están eligiendo el camino del crecimiento. Una carta quincenal, sin ruido. Elige el idioma de tu comunidad.',
+    tribe_en_title: 'English Tribe',
+    tribe_en_body: 'A letter every two weeks on calculated risk, cross-cultural work, and growth that lasts.',
+    tribe_en_cta: 'Join the list',
+    tribe_es_title: 'Tribu en Español',
+    tribe_es_body: 'Una carta quincenal sobre riesgo razonable, trabajo intercultural y crecimiento real.',
+    tribe_es_cta: 'Unirse a la lista',
+    comm_note: 'Respetamos tu privacidad · Sin spam · Cancela cuando quieras',
+
+    contact_label: 'Contacto',
+    contact_title: '¿Listo para dar el <em>primer paso</em>?',
+    contact_body_1: 'Una primera conversación de 30 minutos, sin coste y sin compromiso. Vemos dónde estás, qué te detiene y, si encaja, cómo sería el éxito para ti y de qué forma trabajaríamos juntos para llegar ahí.',
+    contact_body_2: 'Si prefieres escribirme directamente, escríbeme un mensaje aquí o a mi correo. Respondo en menos de 48 horas.',
+    meta_email_k: 'Email',
+    meta_base_k: 'Base',
+    meta_base_v: 'Frankfurt · sesiones online',
+    meta_lang_k: 'Idiomas',
+    meta_lang_v: 'ES · EN',
+    meta_resp_k: 'Respuesta',
+    label_name: 'Tu nombre',
+    placeholder_name: 'María Fernández',
+    label_email: 'Tu correo',
+    placeholder_email: 'maria@ejemplo.com',
+    label_topic: '¿Qué te trae aquí?',
+    topic_1: 'Riesgo & decisiones',
+    topic_2: 'Transición de carrera',
+    topic_3: 'Vida intercultural',
+    topic_4: 'Liderar bajo cambio',
+    label_msg: 'Cuéntame un poco más',
+    placeholder_msg: 'Estoy considerando dejar mi trabajo para…',
+    submit_status: 'Respuesta personal en < 48 h',
+    submit_sending: 'Enviando…',
+    submit_sent: '✓ Mensaje enviado — gracias',
+    submit_invalid: 'Por favor completa todos los campos correctamente.',
+    submit_error: 'Error al enviar — intenta de nuevo.',
+    submit_btn: 'Enviar mensaje',
+
+    foot_nav_title: 'Navegar',
+    foot_work_title: 'Trabajemos',
+    foot_contact_title: 'Contacto',
+    foot_desc: 'Acepta el cambio. Toma riesgos razonables. Crece más allá de tu zona de confort.',
+    foot_link_philosophy: 'Filosofía',
+    foot_link_culture: 'Inteligencia Cultural',
+    foot_link_ai: 'Herramientas IA',
+    foot_link_community: 'Comunidad',
+    foot_link_book: 'Reservar llamada',
+    foot_link_1on1: 'Programa 1:1',
+    foot_link_groups: 'Grupos',
+    foot_copyright: '© 2026 Risk & Growth Coaching',
+    foot_cities: 'Frankfurt · Madrid · Toronto · Caracas',
+
+    sparks: [
+      '¿Qué decisión estás aplazando — y qué te dice eso sobre lo que realmente importa para ti?',
+      '¿En qué parte de tu vida estás siguiendo un guión que ya no escribirías tú mismo?',
+      '¿Qué harías hoy si supieras que no puedes fracasar — y qué te impide hacerlo de todos modos?',
+      '¿Dónde estás siendo demasiado cauto, y qué te costaría ser un poco más audaz?',
+      '¿Qué necesitas escuchar de alguien — y qué te impide pedírselo?',
+      '¿Si el miedo no fuera un factor, cuál sería tu siguiente paso más evidente?',
+    ],
+  },
+
+  en: {
+    nav_bio: 'My Story',
+    nav_philosophy: 'Philosophy',
+    nav_culture: 'Culture',
+    nav_tools: 'Tools',
+    nav_community: 'Community',
+    nav_book: 'Book',
+    lang_toggle: 'ES',
+
+    bio_title: 'A journey of <em>transformation</em>.',
+    bio_subtitle: 'From refugee applicant to Tech Lead — and everything in between.',
+    bio_p1: 'I\'ve lived and worked across four countries — Venezuela, Canada, Spain, and Germany — each one reshaping how I see the world, people, and myself. Navigating those transitions, from being a refugee applicant to building a 20-year career in tech including 5 years at Google, taught me that growth rarely comes from staying comfortable.',
+    bio_p2: 'Outside of work, I\'m a dad to two incredible kids — the best teachers I\'ve ever had. I\'m endlessly curious: I read, experiment, pick up new languages, and genuinely enjoy the feeling of being a beginner again. That love of learning is what drives everything I do, including this coaching practice.',
+    bio_p3: 'If you want to see different results, you have to be brave enough to do things a little differently.',
+
+    hero_title: 'Are you living<br>the life you <em>want</em>?',
+    hero_sub: 'Embrace change. Take reasonable risks. Grow beyond your comfort zone — with a clear, human process built on two decades crossing cultures.',
+    hero_cta_1: 'Start your journey',
+    hero_cta_2: 'Meet the method',
+    hero_stat_1_l: 'Sessions · 4 countries',
+    hero_stat_2_l: 'Base programme',
+    hero_chip_1_k: 'Focus',
+    hero_chip_1_v: 'Reasonable risk',
+    hero_chip_2_k: 'Format',
+    hero_chip_2_v: '1:1 · Groups · Online',
+    hero_chip_3_k: 'Languages',
+    hero_chip_3_v: 'Español · English',
+    hero_chip_4_k: 'Next cohort',
+    hero_chip_4_v: 'June 2026',
+
+    philosophy_label: 'Philosophy',
+    philosophy_title: 'Comfort is the <em>enemy</em> of growth.',
+    philosophy_lede: 'We often hide in the safety of the familiar. But a life well lived requires the courage to step into the unknown. My job isn\'t to hand you a plan — it\'s to ask the questions that get you to your own, and to bring a method for acting on it. Not affirmations.',
+    pillar_1_num: '01 · Pillar',
+    pillar_1_title: 'Embrace change',
+    pillar_1_body: 'Change is not just inevitable — it is the fuel for personal evolution. We learn to welcome it rather than resist it.',
+    pillar_1_rule: 'Inevitable · Fuel',
+    pillar_2_num: '02 · Pillar',
+    pillar_2_title: 'Calculated risk',
+    pillar_2_body: 'Blind recklessness is dangerous. Reasonable risk is essential. We design small, brave, reversible steps forward.',
+    pillar_2_rule: 'Brave · Reversible',
+    pillar_3_num: '03 · Pillar',
+    pillar_3_title: 'Sustainable growth',
+    pillar_3_body: 'Growth only lasts when it points at something you value. We build the foundation that holds it — habits, support, and the way you talk to yourself.',
+    pillar_3_rule: 'Values · Resilience',
+
+    culture_label: 'Cultural Intelligence',
+    culture_title: 'Bridging minds, borders and <em>differences</em>.',
+    culture_body_1: 'The world is smaller than ever, but cultural gaps remain. I guide individuals and teams through the subtle, complex challenges of working across countries, languages, and mindsets.',
+    culture_body_2: 'It\'s not just about language — it\'s about embracing differences and learning to thrive within them. Drawing on my life in Venezuela, Canada, Spain, and Germany, I partner with you through the disorientation of the new — toward understanding and an effectiveness that\'s genuinely yours.',
+    culture_quote_accent: 'Operating principle',
+    culture_quote: 'Understanding <span class="gt">&gt;</span> Judging — curiosity always wins over quick judgment.',
+    city_1_name: 'Caracas',
+    city_1_ct: 'Venezuela · Origin',
+    city_2_name: 'Toronto',
+    city_2_ct: 'Canada · Re-learning',
+    city_3_name: 'Madrid',
+    city_3_ct: 'Spain · Language & roots',
+    city_4_name: 'Frankfurt',
+    city_4_ct: 'Germany · Today',
+
+    ai_label: 'AI Tools',
+    ai_title: '<em>Instant</em> inspiration, in your pocket.',
+    ai_lede: 'Small tools I use with my clients — now available to you, free, whenever you need a nudge or a cultural translation.',
+    spark_title: 'Daily growth spark',
+    spark_desc: 'A question to sit with today — one that nudges you past your comfort zone. Read it, answer honestly, notice what comes up.',
+    spark_empty: 'Press generate for today\'s question.',
+    spark_unit: '≈ 20 words',
+    spark_btn: 'Generate question',
+    spark_loading: 'Generating…',
+    cult_title: 'Cultural decoder',
+    cult_desc: 'Confused by a cross-cultural interaction? Briefly describe the situation and get a useful read.',
+    cult_placeholder: 'e.g. My German boss never praises my work…',
+    cult_btn: 'Decode',
+    cult_empty: 'The cultural reading will appear here.',
+    cult_loading: 'Thinking…',
+    cult_fallback: 'Cultural tip: in German contexts, silence after a proposal usually means reflection, not rejection. Give space before reformulating.',
+
+    community_label: 'Community',
+    community_title: 'Join the <em>tribe</em>.',
+    community_lede: 'Connect with others who are choosing the path of growth. A letter every two weeks, no noise. Choose your community language.',
+    tribe_en_title: 'English Tribe',
+    tribe_en_body: 'A letter every two weeks on calculated risk, cross-cultural work, and growth that lasts.',
+    tribe_en_cta: 'Join the list',
+    tribe_es_title: 'Spanish Tribe',
+    tribe_es_body: 'A letter every two weeks on reasonable risk, cross-cultural work, and real growth.',
+    tribe_es_cta: 'Join the list',
+    comm_note: 'We respect your privacy · No spam · Cancel anytime',
+
+    contact_label: 'Contact',
+    contact_title: 'Ready to take the <em>first step</em>?',
+    contact_body_1: 'A first 30-minute conversation, no cost and no commitment. We figure out where you are, what\'s holding you back, and — if it\'s a fit — what success would actually look like for you and how we\'d work together to get there.',
+    contact_body_2: 'If you\'d prefer to write directly, send me a message here or by email. I respond within 48 hours.',
+    meta_email_k: 'Email',
+    meta_base_k: 'Based',
+    meta_base_v: 'Frankfurt · online sessions',
+    meta_lang_k: 'Languages',
+    meta_lang_v: 'ES · EN',
+    meta_resp_k: 'Response',
+    label_name: 'Your name',
+    placeholder_name: 'John Smith',
+    label_email: 'Your email',
+    placeholder_email: 'john@example.com',
+    label_topic: 'What brings you here?',
+    topic_1: 'Risk & decisions',
+    topic_2: 'Career transition',
+    topic_3: 'Cross-cultural life',
+    topic_4: 'Leading through change',
+    label_msg: 'Tell me a bit more',
+    placeholder_msg: 'I\'m considering leaving my job to…',
+    submit_status: 'Personal reply within 48 h',
+    submit_sending: 'Sending…',
+    submit_sent: '✓ Message sent — thank you',
+    submit_invalid: 'Please fill in all fields correctly.',
+    submit_error: 'Failed to send — please try again.',
+    submit_btn: 'Send message',
+
+    foot_nav_title: 'Navigate',
+    foot_work_title: "Let's work",
+    foot_contact_title: 'Contact',
+    foot_desc: 'Embrace change. Take reasonable risks. Grow beyond your comfort zone.',
+    foot_link_philosophy: 'Philosophy',
+    foot_link_culture: 'Cultural Intelligence',
+    foot_link_ai: 'AI Tools',
+    foot_link_community: 'Community',
+    foot_link_book: 'Book a call',
+    foot_link_1on1: '1:1 Programme',
+    foot_link_groups: 'Groups',
+    foot_copyright: '© 2026 Risk & Growth Coaching',
+    foot_cities: 'Frankfurt · Madrid · Toronto · Caracas',
+
+    sparks: [
+      'What decision are you postponing — and what does that tell you about what really matters to you?',
+      'Where in your life are you following a script you would no longer write yourself?',
+      'What would you do today if you knew you couldn\'t fail — and what\'s stopping you anyway?',
+      'Where are you playing it too safe, and what would it cost you to be a little bolder?',
+      'What do you need to hear from someone — and what\'s stopping you from asking them?',
+      'If fear weren\'t a factor, what would your most obvious next step be?',
+    ],
+  },
+};
+
+/* ── i18n engine ── */
+let lang = 'es';
+
+function applyLang() {
+  const d = T[lang];
+  document.documentElement.lang = lang;
+  document.title = lang === 'es'
+    ? 'Risk & Growth Coaching — Haz que la vida valga la pena'
+    : 'Risk & Growth Coaching — Make life worth living';
+
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    const key = el.dataset.i18n;
+    if (d[key] !== undefined) el.textContent = d[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+    const key = el.dataset.i18nHtml;
+    if (d[key] !== undefined) el.innerHTML = d[key];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach((el) => {
+    const key = el.dataset.i18nPh;
+    if (d[key] !== undefined) el.placeholder = d[key];
+  });
+
+  document.getElementById('lang-toggle').textContent = d.lang_toggle;
+
+  // Reset AI outputs to empty state with correct placeholder
+  const sparkOut = document.getElementById('spark-output');
+  if (!sparkOut.dataset.hasContent) {
+    sparkOut.textContent = d.spark_empty;
+    sparkOut.className = 'ai-output empty';
+  }
+  const cultOut = document.getElementById('cult-output');
+  if (!cultOut.dataset.hasContent) {
+    cultOut.textContent = d.cult_empty;
+    cultOut.className = 'ai-output empty';
+  }
+}
+
+function toggleLang() {
+  lang = lang === 'es' ? 'en' : 'es';
+  // Clear any generated AI content so outputs reset to new-language placeholder
+  const sparkOut = document.getElementById('spark-output');
+  const cultOut  = document.getElementById('cult-output');
+  delete sparkOut.dataset.hasContent;
+  delete cultOut.dataset.hasContent;
+  applyLang();
+}
+
+/* ── Smooth scroll ── */
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-scroll]');
+  if (!el) return;
+  e.preventDefault();
+  const target = document.getElementById(el.dataset.scroll);
+  if (target) window.scrollTo({ top: target.offsetTop - 40, behavior: 'smooth' });
+});
+
+/* ── Nav scroll + active section ── */
+const nav = document.getElementById('main-nav');
+const sectionIds = ['philosophy', 'culture', 'ai', 'community', 'contact'];
+
+function onScroll() {
+  nav.classList.toggle('scrolled', window.scrollY > 24);
+  let closest = null, minDist = Infinity;
+  sectionIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const dist = Math.abs(el.getBoundingClientRect().top - 120);
+    if (dist < minDist) { minDist = dist; closest = id; }
+  });
+  document.querySelectorAll('.nav-links a[data-scroll]').forEach((a) => {
+    a.classList.toggle('active', a.dataset.scroll === closest);
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+/* ── Reveal on scroll ── */
+const revealObs = new IntersectionObserver(
+  (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } }),
+  { threshold: 0.12 }
+);
+document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
+
+/* ── Topic chips ── */
+document.getElementById('topic-chips').addEventListener('click', (e) => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.querySelectorAll('#topic-chips .chip').forEach((c) => c.classList.remove('on'));
+  chip.classList.add('on');
+});
+
+/* ── EmailJS config ─────────────────────────────────────────────
+   1. Go to https://emailjs.com and create a free account
+   2. Add a Gmail service → copy the Service ID below
+   3. Create a template with these variables:
+        {{from_name}}, {{from_email}}, {{topic}}, {{message}}
+      Set "To email" in the template to hola@crecer.coach
+   4. Copy the Template ID and your Public Key below
+   ─────────────────────────────────────────────────────────────── */
+const EJ_SERVICE  = 'service_s3zyuos';
+const EJ_TEMPLATE = 'template_c0riz92';
+const EJ_KEY      = '4MfcL51SlmnJ7E14F';
+
+function validateEmail(addr) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(addr.trim());
+}
+
+async function submitForm(e) {
+  e.preventDefault();
+
+  /* capture form reference BEFORE any await — browsers null e.currentTarget after async boundaries */
+  const form    = e.currentTarget;
+  const nameEl  = document.getElementById('f-name');
+  const emailEl = document.getElementById('f-email');
+  const msgEl   = document.getElementById('f-msg');
+  const status  = document.getElementById('submit-status');
+  const btn     = form.querySelector('button[type="submit"]');
+
+  /* clear previous errors */
+  [nameEl, emailEl, msgEl].forEach(el => el.classList.remove('field-error'));
+  status.className = 'submit-status';
+
+  const name  = nameEl.value.trim();
+  const email = emailEl.value.trim();
+  const msg   = msgEl.value.trim();
+  const topic = document.querySelector('#topic-chips .chip.on')?.textContent?.trim() || '';
+
+  /* validate */
+  let err = false;
+  if (!name)                { nameEl.classList.add('field-error');  err = true; }
+  if (!validateEmail(email)){ emailEl.classList.add('field-error'); err = true; }
+  if (!msg)                 { msgEl.classList.add('field-error');   err = true; }
+  if (err) {
+    status.textContent = T[lang].submit_invalid;
+    status.classList.add('error');
+    return;
+  }
+
+  btn.disabled = true;
+  status.textContent = T[lang].submit_sending;
+
+  try {
+    await emailjs.send(EJ_SERVICE, EJ_TEMPLATE, {
+      from_name:  name,
+      from_email: email,
+      topic,
+      message:    msg,
+      site_lang:  lang,
+    }, EJ_KEY);
+
+    status.textContent = T[lang].submit_sent;
+    status.classList.add('ok');
+    form.reset();
+    /* reset topic chips to first */
+    document.querySelectorAll('#topic-chips .chip').forEach((c, i) => c.classList.toggle('on', i === 0));
+  } catch (err) {
+    console.error('EmailJS:', err);
+    status.textContent = T[lang].submit_error;
+    status.classList.add('error');
+  } finally {
+    btn.disabled = false;
+    setTimeout(() => {
+      status.textContent = T[lang].submit_status;
+      status.className = 'submit-status';
+    }, 6000);
+  }
+}
+
+/* ── AI Tools ── */
+function setOutput(el, text, state, hasContent) {
+  el.textContent = text;
+  el.className = 'ai-output' + (state ? ' ' + state : '');
+  if (hasContent) el.dataset.hasContent = '1';
+  else delete el.dataset.hasContent;
+}
+
+async function generateSpark() {
+  const output = document.getElementById('spark-output');
+  const btn    = document.getElementById('spark-btn');
+  btn.disabled = true;
+  btn.textContent = T[lang].spark_loading;
+  setOutput(output, T[lang].spark_loading, 'loading', false);
+  await new Promise((r) => setTimeout(r, 900));
+  const sparks = T[lang].sparks;
+  const text = sparks[Math.floor(Math.random() * sparks.length)];
+  setOutput(output, text, '', true);
+  btn.disabled = false;
+  btn.textContent = T[lang].spark_btn;
+}
+
+async function decodeCulture() {
+  const input  = document.getElementById('cult-input');
+  const output = document.getElementById('cult-output');
+  const btn    = document.getElementById('cult-btn');
+  if (!input.value.trim()) return;
+  btn.disabled = true;
+  btn.textContent = '…';
+  setOutput(output, T[lang].cult_loading, 'loading', false);
+  await new Promise((r) => setTimeout(r, 1100));
+  setOutput(output, T[lang].cult_fallback, '', true);
+  btn.disabled = false;
+  btn.textContent = T[lang].cult_btn;
+}
+
+document.getElementById('cult-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') decodeCulture();
+});
+
+/* ── Init ── */
+applyLang();
+</script>
+</body>
+</html>
