@@ -4,7 +4,10 @@
     "ignore": [
       "firebase.json",
       ".firebaserc",
-      "**/.*"
+      "**/.*",
+      "functions/**",
+      "skills-lock.json",
+      "**/node_modules/**"
     ],
     "rewrites": [
       {
@@ -36,5 +39,16 @@
         ]
       }
     ]
-  }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "*.local"
+      ]
+    }
+  ]
 }

@@ -772,7 +772,7 @@ footer.foot { padding: 64px 0 48px; border-top: 1px solid var(--line); backgroun
         </div>
         <p class="desc" data-i18n="cult_desc"></p>
         <div class="ai-input">
-          <input type="text" id="cult-input" data-i18n-ph="cult_placeholder" />
+          <input type="text" id="cult-input" maxlength="500" data-i18n-ph="cult_placeholder" />
           <button class="ai-btn" id="cult-btn" onclick="decodeCulture()" data-i18n="cult_btn"></button>
         </div>
         <div class="ai-output empty" id="cult-output"></div>
@@ -1014,7 +1014,9 @@ const T = {
     cult_btn: 'Decodificar',
     cult_empty: 'La lectura cultural aparecerá aquí.',
     cult_loading: 'Pensando…',
-    cult_fallback: 'Pista cultural: en contextos alemanes, el silencio tras una propuesta suele significar reflexión, no rechazo. Da espacio antes de re-formular.',
+    cult_not_cultural: 'No entendí tu pregunta como una sobre diferencias culturales. Describe una situación entre personas de culturas o países distintos e inténtalo de nuevo.',
+    cult_captcha_needed: 'No pudimos verificar la solicitud. Recarga la página e inténtalo de nuevo.',
+    cult_error: 'Algo salió mal. Inténtalo de nuevo en un momento.',
 
     community_label: 'Comunidad',
     community_title: 'Únete a la <em>tribu</em>.',
@@ -1245,7 +1247,9 @@ const T = {
     cult_btn: 'Decode',
     cult_empty: 'The cultural reading will appear here.',
     cult_loading: 'Thinking…',
-    cult_fallback: 'Cultural tip: in German contexts, silence after a proposal usually means reflection, not rejection. Give space before reformulating.',
+    cult_not_cultural: 'I didn\'t understand your question as one about cultural differences. Describe a situation between people from different cultures or countries and try again.',
+    cult_captcha_needed: 'We couldn\'t verify this request. Reload the page and try again.',
+    cult_error: 'Something went wrong. Please try again in a moment.',
 
     community_label: 'Community',
     community_title: 'Join the <em>tribe</em>.',
@@ -1596,14 +1600,27 @@ async function decodeCulture() {
   const input  = document.getElementById('cult-input');
   const output = document.getElementById('cult-output');
   const btn    = document.getElementById('cult-btn');
-  if (!input.value.trim()) return;
+  const text = input.value.trim();
+  if (!text || btn.disabled) return;
+
   btn.disabled = true;
   btn.textContent = '…';
   setOutput(output, T[lang].cult_loading, 'loading', false);
-  await new Promise((r) => setTimeout(r, 1100));
-  setOutput(output, T[lang].cult_fallback, '', true);
-  btn.disabled = false;
-  btn.textContent = T[lang].cult_btn;
+  try {
+    if (!window.cultDecode) throw new Error('decoder not ready');
+    const data = await window.cultDecode({ text, lang });
+    if (!data.cultural) {
+      setOutput(output, T[lang].cult_not_cultural, '', true);
+    } else {
+      setOutput(output, data.answer, '', true);
+    }
+  } catch (err) {
+    const blocked = err && (err.code === 'functions/permission-denied' || err.code === 'functions/unauthenticated');
+    setOutput(output, blocked ? T[lang].cult_captcha_needed : T[lang].cult_error, 'empty', false);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = T[lang].cult_btn;
+  }
 }
 
 document.getElementById('cult-input').addEventListener('keydown', (e) => {
@@ -1612,6 +1629,33 @@ document.getElementById('cult-input').addEventListener('keydown', (e) => {
 
 /* ── Init ── */
 applyLang();
+</script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js';
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-app-check.js';
+import { getFunctions, httpsCallable } from 'https://www.gstatic.com/firebasejs/13.0.0/firebase-functions.js';
+
+const RECAPTCHA_ENTERPRISE_SITE_KEY = '6LdHzgEuAAAAAE90v_MbNqK1uO_st9VGwtn6AlJp';
+
+const app = initializeApp({
+  apiKey: 'AIzaSyDMo5-EWPqIoM0fmTumLAjhzMguAS8Xqlo',
+  authDomain: 'coachig-oacz.firebaseapp.com',
+  projectId: 'coachig-oacz',
+  appId: '1:721099302197:web:469aae479c489f16e2d87c',
+});
+
+if (location.hostname === 'localhost') self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+
+initializeAppCheck(app, {
+  provider: new ReCaptchaEnterpriseProvider(RECAPTCHA_ENTERPRISE_SITE_KEY),
+  isTokenAutoRefreshEnabled: true,
+});
+
+const decode = httpsCallable(getFunctions(app, 'europe-west1'), 'decodeCulture', {
+  limitedUseAppCheckTokens: true,
+});
+
+window.cultDecode = async (payload) => (await decode(payload)).data;
 </script>
 </body>
 </html>
